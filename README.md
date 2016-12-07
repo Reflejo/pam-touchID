@@ -8,6 +8,6 @@ Installation
 ------------
 
 1. `$ sudo make install`
-2. Edit `/etc/pam.d/sudo` to include as the first line: `auth sufficient pam_touchid.so reason="execute a command as root"`
+2. Edit `/etc/pam.d/sudo` to include as the first line: `auth sufficient pam_touchid.so "reason=execute a command as root"`
 
 _Note that you might have other `auth`, don't remove them._
