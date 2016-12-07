@@ -5,6 +5,7 @@ import LocalAuthentication
 private let PAM_SUCCESS = 0
 private let PAM_AUTH_ERR = 9
 private let PAM_IGNORE = 25
+private let DEFAULT_REASON = "perform an action that requires authentication"
 
 public typealias vchar = UnsafeMutablePointer<UnsafeMutablePointer<Int8>>
 public typealias pam_handler_t = UnsafeRawPointer
@@ -14,7 +15,8 @@ public typealias pam_handler_t = UnsafeRawPointer
 @_silgen_name("pam_sm_authenticate")
 public func pam_sm_authenticate(pamh: pam_handler_t, flags: Int, argc: Int, argv: vchar) -> Int {
     let arguments = parseArguments(argc: argc, argv: argv)
-    let reason = arguments["reason"] ?? "perform an action that requires authentication"
+    var reason = arguments["reason"] ?? DEFAULT_REASON
+    reason = reason.isEmpty ? DEFAULT_REASON : reason
 
     let semaphore = DispatchSemaphore(value: 0)
 
