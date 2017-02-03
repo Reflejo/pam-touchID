@@ -1,3 +1,4 @@
+pam_touchid.so
 .DS_Store
 *.swp
 *.swo
