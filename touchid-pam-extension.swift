@@ -46,7 +46,7 @@ private func parseArguments(argc: Int, argv: vchar) -> [String: String] {
                                          options: .dotMatchesLineSeparators)
 
     let matches = regex?.matches(in: arguments, options: .withoutAnchoringBounds,
-                                 range: NSRange(location: 0, length: arguments.characters.count))
+                                 range: NSRange(location: 0, length: arguments.count))
 
     let nsArguments = arguments as NSString
     let groups = matches?
