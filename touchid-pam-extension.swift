@@ -18,11 +18,15 @@ public func pam_sm_authenticate(pamh: pam_handler_t, flags: Int, argc: Int, argv
     var reason = arguments["reason"] ?? DEFAULT_REASON
     reason = reason.isEmpty ? DEFAULT_REASON : reason
 
-    let semaphore = DispatchSemaphore(value: 0)
-
-    var result = PAM_AUTH_ERR
     let policy = LAPolicy.deviceOwnerAuthenticationIgnoringUserID
-    LAContext().evaluatePolicy(policy, localizedReason: reason) { success, error in
+    let context = LAContext()
+    if !context.canEvaluatePolicy(policy, error: nil) {
+        return PAM_IGNORE
+    }
+
+    let semaphore = DispatchSemaphore(value: 0)
+    var result = PAM_AUTH_ERR
+    context.evaluatePolicy(policy, localizedReason: reason) { success, error in
         defer { semaphore.signal() }
 
         if let error = error {
