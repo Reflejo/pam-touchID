@@ -18,6 +18,12 @@ public func pam_sm_authenticate(pamh: pam_handler_t, flags: Int, argc: Int, argv
     var reason = arguments["reason"] ?? DEFAULT_REASON
     reason = reason.isEmpty ? DEFAULT_REASON : reason
 
+    print(ProcessInfo.processInfo.environment["SUDO_ASKPASS"])
+
+    if ProcessInfo.processInfo.environment["SUDO_ASKPASS"] != nil {
+      return PAM_IGNORE
+    }
+
     let policy = LAPolicy.deviceOwnerAuthenticationIgnoringUserID
     let context = LAContext()
     if !context.canEvaluatePolicy(policy, error: nil) {
