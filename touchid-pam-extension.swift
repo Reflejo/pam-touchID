@@ -14,6 +14,11 @@ public typealias pam_handler_t = UnsafeRawPointer
 
 @_silgen_name("pam_sm_authenticate")
 public func pam_sm_authenticate(pamh: pam_handler_t, flags: Int, argc: Int, argv: vchar) -> Int {
+    let sudoArguments = ProcessInfo.processInfo.arguments
+    if sudoArguments.contains("-A") || sudoArguments.contains("--askpass") {
+        return PAM_IGNORE
+    }
+
     let arguments = parseArguments(argc: argc, argv: argv)
     var reason = arguments["reason"] ?? DEFAULT_REASON
     reason = reason.isEmpty ? DEFAULT_REASON : reason
