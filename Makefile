@@ -4,7 +4,7 @@ DESTINATION = /usr/local/lib/pam
 TARGET = x86_64-apple-macosx10.12.3
 
 all:
-	swiftc touchid-pam-extension.swift -o $(LIBRARY_NAME) -target $(TARGET) -emit-library -static-stdlib
+	swiftc touchid-pam-extension.swift -o $(LIBRARY_NAME) -target $(TARGET) -emit-library
 
 install: all
 	mkdir -p $(DESTINATION)
