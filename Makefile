@@ -1,7 +1,7 @@
 VERSION = 2
 LIBRARY_NAME = pam_touchid.so
 DESTINATION = /usr/local/lib/pam
-TARGET = x86_64-apple-macosx10.12.3
+TARGET = x86_64-apple-macosx10.15
 
 all:
 	swiftc touchid-pam-extension.swift -o $(LIBRARY_NAME) -target $(TARGET) -emit-library
