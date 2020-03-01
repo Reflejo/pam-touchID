@@ -8,6 +8,7 @@ all:
 
 install: all
 	mkdir -p $(DESTINATION)
+	rm -f $(DESTINATION)/$(LIBRARY_NAME).$(VERSION)
 	cp $(LIBRARY_NAME) $(DESTINATION)/$(LIBRARY_NAME).$(VERSION)
 	chmod 444 $(DESTINATION)/$(LIBRARY_NAME).$(VERSION)
-	chown root:wheel $(DESTINATION)/$(LIBRARY_NAME).$(VERSION)
+	sudo chown root:wheel $(DESTINATION)/$(LIBRARY_NAME).$(VERSION)
