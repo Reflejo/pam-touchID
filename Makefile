@@ -12,6 +12,9 @@ endif
 
 all: $(LIBRARY_NAME)
 
+clean:
+	rm $(LIBRARY_NAME)
+
 $(LIBRARY_NAME): touchid-pam-extension.swift
 	swiftc touchid-pam-extension.swift -o $(LIBRARY_NAME) -target $(TARGET) -emit-library
 
